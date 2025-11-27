@@ -59,15 +59,11 @@ export const ModuleStyles = ({
         attrName: 'title',
       })}
 
-      {/* Summary */}
+      {/* Description */}
       {elements.style({
-        attrName: 'summary',
+        attrName: 'description',
       })}
 
-      {/* Content */}
-      {elements.style({
-        attrName: 'content',
-      })}
 
       {/*
        * We need to add CssStyle at the very bottom of other components

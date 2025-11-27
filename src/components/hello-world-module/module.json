@@ -199,12 +199,12 @@
       "elementType": "heading",
       "childrenSanitizer": "et_core_esc_previously"
     },
-    "summary": {
+    "description": {
       "type": "object",
-      "selector": "{{selector}} .example_hello_world_module__summary",
+      "selector": "{{selector}} .example_hello_world_module__description",
       "tagName": "div",
       "attributes": {
-        "class": "example_hello_world_module__summary"
+        "class": "example_hello_world_module__description"
       },
       "inlineEditor": "plainText",
       "childrenSanitizer": "et_core_esc_previously",
@@ -215,9 +215,9 @@
             "groupName": "mainContent",
             "priority": 15,
             "render": true,
-            "attrName": "summary.innerContent",
-            "label": "Summary",
-            "description": "Input your summary text here. This field supports multiple lines.",
+            "attrName": "description.innerContent",
+            "label": "Description",
+            "description": "Input your description text here. This field supports multiple lines.",
             "features": {
               "sticky": false,
               "dynamicContent": false,
@@ -244,49 +244,6 @@
           }
         }
       }
-    },
-    "content": {
-      "type": "object",
-      "selector": "{{selector}} .example_hello_world_module__content",
-      "tagName": "div",
-      "attributes": {
-        "class": "example_hello_world_module__content"
-      },
-      "inlineEditor": "richText",
-      "childrenSanitizer": "et_core_esc_previously",
-      "styleProps": {
-        "bodyFont": {
-          "selectors": {
-            "desktop": {
-              "value": "{{selector}} .example_hello_world_module__content"
-            }
-          }
-        }
-      },
-      "settings": {
-        "innerContent": {
-          "groupType": "group-item",
-          "item": {
-            "groupName": "mainContent",
-            "priority": 20,
-            "render": true,
-            "attrName": "content.innerContent",
-            "label": "Content",
-            "description": "Input the main text content for your module here.",
-            "features": {
-              "sticky": false,
-              "dynamicContent": false
-            },
-            "component": {
-              "name": "divi/richtext",
-              "type": "field"
-            }
-          }
-        },
-        "decoration": {
-          "bodyFont": {}
-        }
-      }
     }
   },
   "customCssFields": {
@@ -299,13 +256,9 @@
       "selector": "div{{selector}}",
       "selectorSuffix": " .example_hello_world_module__title"
     },
-    "summary": {
-      "subName": "summary",
-      "selectorSuffix": " .example_hello_world_module__summary"
-    },
-    "content": {
-      "subName": "content",
-      "selectorSuffix": " .example_hello_world_module__content"
+    "description": {
+      "subName": "description",
+      "selectorSuffix": " .example_hello_world_module__description"
     },
     "image": {
       "subName": "image",

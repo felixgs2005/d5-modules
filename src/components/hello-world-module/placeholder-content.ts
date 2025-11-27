@@ -10,20 +10,13 @@ export const placeholderContent: HelloWorldModuleAttrs = {
       },
     }
   },
-  content: {
+  description: {
     innerContent: {
       desktop: {
-        value: "Content placeholder",
+        value: "Description par default",
       },
     }
-  },
-  summary: {
-    innerContent: {
-      desktop: {
-        value: "Summary placeholder",
-      },
-    }
-  },
+  },  
   image: {
     innerContent: {
       desktop: {

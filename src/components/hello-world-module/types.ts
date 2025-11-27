@@ -15,8 +15,7 @@ export interface Image {
 export interface HelloWorldModuleCssAttr extends Module.Css.AttributeValue {
   contentContainer?: string;
   title?: string;
-  summary?: string;
-  content?: string;
+  description?: string;
   image?: string;
 }
 
@@ -66,11 +65,9 @@ export interface HelloWorldModuleAttrs extends InternalAttrs {
   // Title
   title?: Element.Types.Title.Attributes;
 
-  // Summary
-  summary?: Element.Types.Content.Attributes;
+  // Description
+  description?: Element.Types.Content.Attributes;
 
-  // Content
-  content?: Element.Types.Content.Attributes;
 }
 
 export type HelloWorldModuleEditProps = ModuleEditProps<HelloWorldModuleAttrs>;
