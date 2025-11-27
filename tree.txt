@@ -1,0 +1,59 @@
+d5-demo-modules
+├─ modules
+│  ├─ StaticModule
+│  │  ├─ StaticModuleTrait
+│  │  │  ├─ CustomCssTrait.php
+│  │  │  ├─ ModuleClassnamesTrait.php
+│  │  │  ├─ ModuleScriptDataTrait.php
+│  │  │  ├─ ModuleStylesTrait.php
+│  │  │  └─ RenderCallbackTrait.php
+│  │  └─ StaticModule.php
+│  └─ Modules.php
+├─ scripts
+│  └─ bundle.js
+├─ src
+│  ├─ components
+│  │  └─ static-module
+│  │     ├─ custom-css.ts
+│  │     ├─ edit.tsx
+│  │     ├─ index.ts
+│  │     ├─ module-classnames.ts
+│  │     ├─ module-default-printed-style-attributes.json
+│  │     ├─ module-default-render-attributes.json
+│  │     ├─ module-script-data.tsx
+│  │     ├─ module.json
+│  │     ├─ module.scss
+│  │     ├─ placeholder-content.ts
+│  │     ├─ README.md
+│  │     ├─ style.scss
+│  │     ├─ styles.tsx
+│  │     └─ types.ts
+│  ├─ icons
+│  │  ├─ module-static
+│  │  │  └─ index.tsx
+│  │  └─ index.ts
+│  ├─ index.ts
+│  ├─ module-icons.ts
+│  └─ types.ts
+├─ styles
+│  ├─ bundle.css
+│  └─ vb-bundle.css
+├─ test-config
+│  ├─ babel-transformer.js
+│  ├─ global-mocks.js
+│  ├─ jest.config.js
+│  └─ override-react-use-layout-effect.js
+├─ webpack
+│  └─ config
+│     └─ plugins
+│        ├─ conversion-outline-json-plugin.js
+│        └─ extract-static-properties.js
+├─ composer.json
+├─ d5-demo-modules-v0.0.1.zip
+├─ d5-demo-modules.php
+├─ gulpfile.js
+├─ package-lock.json
+├─ package.json
+├─ README.md
+├─ tsconfig.json
+└─ webpack.config.js

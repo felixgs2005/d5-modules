@@ -1,0 +1,36 @@
+// Local dependencies.
+import {HelloWorldModuleAttrs} from './types';
+
+
+export const placeholderContent: HelloWorldModuleAttrs = {
+  title: {
+    innerContent: {
+      desktop: {
+        value:"Titre placeholder",
+      },
+    }
+  },
+  content: {
+    innerContent: {
+      desktop: {
+        value: "Content placeholder",
+      },
+    }
+  },
+  summary: {
+    innerContent: {
+      desktop: {
+        value: "Summary placeholder",
+      },
+    }
+  },
+  image: {
+    innerContent: {
+      desktop: {
+        value: {
+          src: "https://placehold.co/600x400/EEE/31343C",
+        },
+      },
+    },
+  },
+};
