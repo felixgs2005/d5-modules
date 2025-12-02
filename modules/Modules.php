@@ -15,7 +15,7 @@ use MEE\Modules\DemoCardModule\DemoCardModule;
 use MEE\Modules\DemoEtudiantModule\DemoEtudiantModule;
 
 /**
- * 1. Add modules to dependency tree
+ * 1. Add modules to Divi dependency tree
  */
 add_action(
 	'divi_module_library_modules_dependency_tree',
@@ -24,18 +24,5 @@ add_action(
 		$dependency_tree->add_dependency(new HelloWorldModule());
 		$dependency_tree->add_dependency(new DemoCardModule());
 		$dependency_tree->add_dependency(new DemoEtudiantModule());
-	}
-);
-
-/**
- * 2. REGISTER modules with Divi
- */
-add_action(
-	'divi_module_library_register_modules',
-	function () {
-		MovieCardModule::register();
-		HelloWorldModule::register();
-		DemoCardModule::register();
-		DemoEtudiantModule::register();
 	}
 );
