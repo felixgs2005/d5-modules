@@ -1,81 +1,412 @@
-/* ================================
-   MOVIE CARD MODULE (FRONT-END)
-   ================================ */
+/* Tout est scope à la classe du module Divi */
+.example_movie_card_module {
+  font-family: "Roboto", sans-serif;
+  background-color: #3b3b3b;
 
-.example_movie_card_module__inner {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  align-items: stretch;
-}
-
-/* Image container */
-.example_movie_card_module__image img {
-  width: 100%;
-  height: auto;
-  border-radius: 16px;
-  object-fit: cover;
-}
-
-/* Content container */
-.example_movie_card_module__content-container {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  flex-grow: 1;
-}
-
-/* Title */
-.example_movie_card_module__title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0;
-}
-
-/* Tagline */
-.example_movie_card_module__tagline {
-  font-size: 1.2rem;
-  font-style: italic;
-  opacity: 0.8;
-}
-
-/* Genres */
-.example_movie_card_module__genres {
-  font-size: 0.95rem;
-  opacity: 0.9;
-}
-
-/* Rating */
-.example_movie_card_module__rating {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #ffd700;
-}
-
-/* Synopsis */
-.example_movie_card_module__synopsis {
-  line-height: 1.6;
-  font-size: 1rem;
-  opacity: 0.9;
-}
-
-/* Release Date + Runtime */
-.example_movie_card_module__release-date,
-.example_movie_card_module__runtime {
-  font-size: 0.95rem;
-  opacity: 0.85;
-}
-
-/* ========================================
-   RESPONSIVE
-   ======================================== */
-
-@media (max-width: 768px) {
-  .example_movie_card_module__inner {
-    flex-direction: column;
+  .movie-cards-container *,
+  .movie-cards-container *::before,
+  .movie-cards-container *::after {
+    box-sizing: border-box;
   }
 
-  .example_movie_card_module__image img {
+  .movie-cards-container {
+    padding: 40px 20px;
+  }
+
+  /* WRAPPER */
+  .movie-cards-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
+    color: white;
+    position: relative;
+  }
+
+  .movie-cards-wrapper .credit {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: inherit;
+    font-size: 0.9rem;
+    z-index: 100;
+  }
+
+  /* OPTIONS (ROW OF CARDS) */
+  .movie-cards-wrapper .options {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    overflow: visible;
     width: 100%;
+    height: 700px;
+    gap: 10px;
+  }
+
+  /* ONE CARD */
+  .movie-cards-wrapper .option {
+    position: relative;
+    overflow: visible;
+    min-width: 90px;
+    cursor: pointer;
+    transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+    flex-grow: 1;
+    border-radius: 50px;
+    perspective: 1000px;
+  }
+
+  /* CARD INNER (3D flip container) */
+  .movie-cards-wrapper .option-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    border-radius: inherit;
+  }
+
+  .movie-cards-wrapper .option.flipped .option-inner {
+    transform: rotateY(180deg);
+  }
+
+  .movie-cards-wrapper .option-front,
+  .movie-cards-wrapper .option-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: inherit;
+    overflow: hidden;
+  }
+
+  /* FRONT SIDE */
+  .movie-cards-wrapper .option-front {
+    background: var(--optionBackground, var(--defaultBackground, #e6e9ed));
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* BACK SIDE */
+  .movie-cards-wrapper .option-back {
+    background-size: cover;
+    background-position: center;
+    transform: rotateY(180deg);
+    padding: 30px;
+    overflow-y: auto;
+    backdrop-filter: blur(5px);
+  }
+
+  .option-back * {
+    position: relative;
+    z-index: 2;
+    color: white;
+  }
+
+  .option-back::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--optionBackground);
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px) brightness(0.5);
+    z-index: 1;
+    border-radius: inherit;
+  }
+
+  .movie-cards-wrapper .option-back h2 {
+    margin-bottom: 15px;
+    font-size: 50px;
+    color: white;
+  }
+
+  .movie-cards-wrapper .option-back .rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+
+  .movie-cards-wrapper .option-back .rating i {
+    color: #ffd700;
+  }
+
+  .movie-cards-wrapper .option-back .overview {
+    line-height: 1.6;
+    color: #fff;
+    margin: 45px 0;
+    font-size: 25px;
+  }
+
+  .movie-cards-wrapper .option-back .details {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    font-size: 25px;
+    color: #fff;
+  }
+
+  .movie-cards-wrapper .option-back .details strong {
+    color: white;
+  }
+
+  /* ACTIVE CARD EXPANDS */
+  .movie-cards-wrapper .option.active {
+    flex-grow: 10000;
+    border-radius: 40px;
+  }
+
+  .movie-cards-wrapper .option.active .option-front {
+    background-size: cover;
+  }
+
+  .movie-cards-wrapper .option.active .shadow {
+    box-shadow:
+      inset 0 -120px 120px -120px black,
+      inset 0 -120px 120px -100px black;
+  }
+
+  .movie-cards-wrapper .option.active .label {
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .movie-cards-wrapper .option.active .label .info > div {
+    left: 0px;
+    opacity: 1;
+  }
+
+  /* NON-ACTIVE CARDS */
+  .movie-cards-wrapper .option:not(.active) .shadow {
+    bottom: -40px;
+    box-shadow:
+      inset 0 -120px 0px -120px black,
+      inset 0 -120px 0px -100px black;
+  }
+
+  .movie-cards-wrapper .option:not(.active) .label {
+    bottom: 10px;
+    left: 25px;
+  }
+
+  .movie-cards-wrapper .option:not(.active) .label .info > div {
+    left: 20px;
+    opacity: 0;
+  }
+
+  /* SHADOW */
+  .movie-cards-wrapper .shadow {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 120px;
+    transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+    pointer-events: none;
+  }
+
+  /* LABEL */
+  .movie-cards-wrapper .label {
+    display: flex;
+    position: absolute;
+    right: 0px;
+    height: 40px;
+    transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+    pointer-events: none;
+  }
+
+  .movie-cards-wrapper .label .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 40px;
+    max-width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    background-color: white;
+    color: red;
+  }
+
+  .movie-cards-wrapper .label .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+    color: white;
+    white-space: pre;
+  }
+
+  .movie-cards-wrapper .label .info > div {
+    position: relative;
+    transition:
+      0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95),
+      opacity 0.5s ease-out;
+  }
+
+  .movie-cards-wrapper .label .info .main {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .movie-cards-wrapper .label .info .sub {
+    transition-delay: 0.1s;
+  }
+
+  /* RESPONSIVE 768px */
+  @media screen and (max-width: 768px) {
+    .movie-cards-wrapper {
+      padding: 20px 15px;
+      min-height: 100vh;
+    }
+
+    .movie-cards-wrapper .options {
+      flex-direction: column;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      min-height: auto;
+      gap: 15px;
+    }
+
+    .movie-cards-wrapper .option {
+      min-height: 90px;
+      height: 90px;
+      width: 100%;
+      border-radius: 50px;
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
+
+    .movie-cards-wrapper .option.active {
+      flex-grow: 0;
+      flex-shrink: 0;
+      height: 400px;
+      min-height: 400px;
+      max-width: 100%;
+      border-radius: 30px;
+    }
+
+    .movie-cards-wrapper .option.active .shadow {
+      box-shadow:
+        inset 0 -80px 80px -80px black,
+        inset 0 -80px 80px -60px black;
+    }
+
+    .movie-cards-wrapper .option:not(.active) .shadow {
+      height: 80px;
+      box-shadow:
+        inset 0 -80px 0px -80px black,
+        inset 0 -80px 0px -60px black;
+    }
+
+    .movie-cards-wrapper .shadow {
+      height: 80px;
+    }
+
+    .movie-cards-wrapper .option.active .label {
+      bottom: 15px;
+      left: 15px;
+    }
+
+    .movie-cards-wrapper .option:not(.active) .label {
+      bottom: 25px;
+      left: 10px;
+    }
+
+    .movie-cards-wrapper .option-back {
+      padding: 20px;
+    }
+
+    .movie-cards-wrapper .option-back h2 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    .movie-cards-wrapper .option-back .rating {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .movie-cards-wrapper .option-back .overview {
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .movie-cards-wrapper .option-back .details {
+      font-size: 0.85rem;
+      gap: 6px;
+    }
+
+    .movie-cards-wrapper .label .info .main {
+      font-size: 1rem;
+    }
+
+    .movie-cards-wrapper .label .info .sub {
+      font-size: 0.85rem;
+    }
+
+    .movie-cards-wrapper .label .icon {
+      min-width: 35px;
+      max-width: 35px;
+      height: 35px;
+    }
+  }
+
+  /* RESPONSIVE 480px */
+  @media screen and (max-width: 480px) {
+    .movie-cards-wrapper {
+      padding: 15px 10px;
+    }
+
+    .movie-cards-wrapper .options {
+      gap: 12px;
+    }
+
+    .movie-cards-wrapper .option {
+      min-height: 60px;
+      height: 60px;
+      border-radius: 40px;
+    }
+
+    .movie-cards-wrapper .option:not(.active) .label {
+      bottom: 7px;
+      left: 10px;
+    }
+
+    .movie-cards-wrapper .option.active {
+      height: 350px;
+      min-height: 350px;
+      border-radius: 25px;
+    }
+
+    .movie-cards-wrapper .option-back {
+      padding: 15px;
+    }
+
+    .movie-cards-wrapper .option-back h2 {
+      font-size: 1.2rem;
+    }
+
+    .movie-cards-wrapper .option-back .overview {
+      font-size: 0.85rem;
+    }
+
+    .movie-cards-wrapper .label .info .main {
+      font-size: 0.9rem;
+    }
+
+    .movie-cards-wrapper .label .info .sub {
+      font-size: 0.8rem;
+    }
+
+    .movie-cards-wrapper .label .icon {
+      min-width: 32px;
+      max-width: 32px;
+      height: 32px;
+      font-size: 0.9rem;
+    }
   }
 }
