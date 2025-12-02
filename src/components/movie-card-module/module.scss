@@ -1,7 +1,6 @@
-/* Tout est scope à la classe du module Divi */
 .example_movie_card_module {
-  font-family: "Roboto", sans-serif;
   background-color: #3b3b3b;
+  font-family: "Roboto", sans-serif;
 
   .movie-cards-container *,
   .movie-cards-container *::before,
@@ -56,7 +55,7 @@
     perspective: 1000px;
   }
 
-  /* CARD INNER (3D flip container) */
+  /* INNER (for flip) */
   .movie-cards-wrapper .option-inner {
     position: relative;
     width: 100%;
@@ -66,10 +65,12 @@
     border-radius: inherit;
   }
 
+  /* WHEN FLIPPED */
   .movie-cards-wrapper .option.flipped .option-inner {
     transform: rotateY(180deg);
   }
 
+  /* SIDES */
   .movie-cards-wrapper .option-front,
   .movie-cards-wrapper .option-back {
     position: absolute;
@@ -196,7 +197,6 @@
     opacity: 0;
   }
 
-  /* SHADOW */
   .movie-cards-wrapper .shadow {
     position: absolute;
     bottom: 0px;
@@ -207,7 +207,6 @@
     pointer-events: none;
   }
 
-  /* LABEL */
   .movie-cards-wrapper .label {
     display: flex;
     position: absolute;
@@ -254,7 +253,9 @@
     transition-delay: 0.1s;
   }
 
-  /* RESPONSIVE 768px */
+  /* ============================
+     RESPONSIVE 768px
+     ============================ */
   @media screen and (max-width: 768px) {
     .movie-cards-wrapper {
       padding: 20px 15px;
@@ -355,7 +356,9 @@
     }
   }
 
-  /* RESPONSIVE 480px */
+  /* ============================
+     RESPONSIVE 480px
+     ============================ */
   @media screen and (max-width: 480px) {
     .movie-cards-wrapper {
       padding: 15px 10px;
