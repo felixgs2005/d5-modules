@@ -176,6 +176,7 @@ def build_variants(name: str) -> Dict[str, str]:
 
 
     # Cas "module-hello-world" / "module_hello_world" / "module hello world"
+    # et alias type moduleHelloWorld / ModuleHelloWorld
     if len(tokens) >= 2:
         prefix = tokens[-1]       # ex: 'module'
         rest = tokens[:-1]        # ex: ['hello', 'world']
@@ -183,9 +184,17 @@ def build_variants(name: str) -> Dict[str, str]:
         rest_snake = "_".join(rest)
         rest_space = " ".join(rest)
 
-        variants["prefix_rest_kebab"] = f"{prefix}-{rest_kebab}"
-        variants["prefix_rest_snake"] = f"{prefix}_{rest_snake}"
-        variants["prefix_rest_space"] = f"{prefix} {rest_space}"
+        # chemins / strings style registre
+        variants["prefix_rest_kebab"] = f"{prefix}-{rest_kebab}"      # module-hello-world
+        variants["prefix_rest_snake"] = f"{prefix}_{rest_snake}"      # module_hello_world
+        variants["prefix_rest_space"] = f"{prefix} {rest_space}"      # module hello world
+
+        # alias JS/TS : moduleHelloWorld / ModuleHelloWorld
+        prefix_rest_camel = prefix.lower() + "".join(t.capitalize() for t in rest)
+        prefix_rest_pascal = prefix.capitalize() + "".join(t.capitalize() for t in rest)
+
+        variants["prefix_rest_camel"] = prefix_rest_camel   # moduleHelloWorld
+        variants["prefix_rest_pascal"] = prefix_rest_pascal # ModuleHelloWorld
 
     return variants
 
@@ -436,6 +445,86 @@ def run_rename_mode(paths: Dict[str, Dict[str, Optional[Path]]],
         entry["dst"] = new_root  # pour info si besoin
 
 
+def duplicate_module_references_in_file(path: Path, replacements: List[Tuple[str, str]]) -> None:
+    """
+    Dans un fichier donné, duplique les lignes contenant le module source
+    en ajoutant juste en dessous une version adaptée au module cible.
+
+    Exemple (duplicate, HelloWorldModule -> DemoEtudiantModule) :
+
+        use MEE\Modules\HelloWorldModule\HelloWorldModule;
+        use MEE\Modules\DemoEtudiantModule\DemoEtudiantModule;
+
+        $dependency_tree->add_dependency( new HelloWorldModule() );
+        $dependency_tree->add_dependency( new DemoEtudiantModule() );
+    """
+    logger = get_logger()
+
+    if not path.exists():
+        logger.debug("[INFO] Fichier inexistant, ignoré : %s", path)
+        return
+
+    try:
+        content = path.read_text(encoding="utf-8")
+    except UnicodeDecodeError:
+        logger.info("[SKIP] Fichier binaire/non-UTF8 ignoré : %s", path)
+        return
+
+    lines = content.splitlines(keepends=True)
+    new_lines: List[str] = []
+    changed = False
+
+    for line in lines:
+        new_lines.append(line)
+
+        # On ne duplique que les lignes qui contiennent au moins une forme du module source
+        if any(old in line for (old, _new) in replacements):
+            dup_line, dup_changed = multi_replace(line, replacements)
+            if dup_changed and dup_line not in new_lines:
+                new_lines.append(dup_line)
+                changed = True
+
+    if changed:
+        path.write_text("".join(new_lines), encoding="utf-8")
+        logger.info("[OK] Références dupliquées dans : %s", path)
+
+
+def update_registry_files(base_dir: Path,
+                          replacements: List[Tuple[str, str]],
+                          mode: str) -> None:
+    """
+    Met à jour les fichiers "registres" globaux :
+      - modules/Modules.php
+      - src/index.ts
+      - src/icons/index.ts
+
+    Si mode == "duplicate" :
+        - on DUPLIQUE les lignes qui référencent le module source
+          en ajoutant les lignes équivalentes pour le module cible.
+
+    Si mode == "rename" :
+        - on applique un simple renommage (search/replace) dans ces fichiers.
+    """
+    logger = get_logger()
+
+    modules_php = base_dir / "modules" / "Modules.php"
+    src_index_ts = base_dir / "src" / "index.ts"
+    icons_index_ts = base_dir / "src" / "icons" / "index.ts"
+
+    registry_files = [modules_php, src_index_ts, icons_index_ts]
+
+    for path in registry_files:
+        if not path.exists():
+            logger.debug("[INFO] Fichier registre manquant (ignoré) : %s", path)
+            continue
+
+        if mode == "duplicate":
+            duplicate_module_references_in_file(path, replacements)
+        else:  # mode == "rename"
+            process_file(path, replacements)
+
+
+
 # =====================================================================
 # CLI (main court & configurable)
 # =====================================================================
@@ -480,7 +569,7 @@ def main(argv: Optional[list] = None) -> None:
 
     # 🔹 Constantes centralisées
     DEFAULT_SOURCE = "HelloWorldModule"
-    DEFAULT_TARGET = "DemoEtudiantModule"
+    DEFAULT_TARGET = "DemoSliderModule"
     DEFAULT_MODE   = "duplicate"  # "rename" => transformation directe
 
     # 🚀 Setup logging
@@ -517,6 +606,9 @@ def main(argv: Optional[list] = None) -> None:
         run_duplicate_mode(paths, replacements)
     else:
         run_rename_mode(paths, replacements)
+
+    # 🔄 Mise à jour des fichiers registres globaux
+    update_registry_files(base_dir, replacements, mode)
 
     logger.info("=== Terminé ===")
     logger.info("Module '%s' %s vers '%s'.",
