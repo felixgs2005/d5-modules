@@ -1,34 +1,70 @@
 // Local dependencies.
-import {StaticModuleAttrs} from './types';
+import { MovieCardAttrs } from "./types";
 
-
-export const placeholderContent: StaticModuleAttrs = {
+export const placeholderContent: MovieCardAttrs = {
   title: {
     innerContent: {
       desktop: {
-        value:"Titre placeholder",
+        value: "Movie Title Placeholder",
       },
-    }
+    },
   },
-  content: {
+
+  tagline: {
     innerContent: {
       desktop: {
-        value: "Content placeholder",
+        value: "A powerful placeholder tagline.",
       },
-    }
+    },
   },
-  summary: {
+
+  genres: {
     innerContent: {
       desktop: {
-        value: "Summary placeholder",
+        value: "Action, Adventure, Fantasy",
       },
-    }
+    },
   },
+
+  rating: {
+    innerContent: {
+      desktop: {
+        value: "8.5/10",
+      },
+    },
+  },
+
+  synopsis: {
+    innerContent: {
+      desktop: {
+        value:
+          "This is a placeholder movie synopsis. It gives a brief overview of the movie story.",
+      },
+    },
+  },
+
+  releaseDate: {
+    innerContent: {
+      desktop: {
+        value: "2024-11-04",
+      },
+    },
+  },
+
+  runtime: {
+    innerContent: {
+      desktop: {
+        value: "2h 15m",
+      },
+    },
+  },
+
   image: {
     innerContent: {
       desktop: {
         value: {
-          src: "https://placehold.co/600x400/EEE/31343C",
+          src: "https://placehold.co/600x900/EEE/31343C?text=Movie+Poster",
+          alt: "Placeholder poster",
         },
       },
     },

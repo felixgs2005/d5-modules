@@ -1,85 +1,84 @@
 // External dependencies.
-import React, {ReactElement} from 'react';
+import React, { ReactElement } from "react";
 
 // Divi dependencies.
-import {
-  StyleContainer,
-  StylesProps,
-  CssStyle,
-  TextStyle,
-} from '@divi/module';
+import { StyleContainer, StylesProps, CssStyle } from "@divi/module";
 
 // Local dependencies.
-import {StaticModuleAttrs} from './types';
-import {cssFields} from './custom-css';
+import { MovieCardAttrs } from "./types";
+import { cssFields } from "./custom-css";
 
 /**
- * Static Module's style components.
+ * Movie Card Module Style Components
  *
  * @since ??
  */
 export const ModuleStyles = ({
-    attrs,
-    elements,
-    settings,
-    orderClass,
-    mode,
-    state,
-    noStyleTag,
-  }: StylesProps<StaticModuleAttrs>): ReactElement => {
-  const textSelector = `${orderClass} .example_static_module__content-container`;
+  attrs,
+  elements,
+  settings,
+  orderClass,
+  mode,
+  state,
+  noStyleTag,
+}: StylesProps<MovieCardAttrs>): ReactElement => {
+  // Temp selector for Divi text controls (will update when your classnames exist)
+  const textSelector = `${orderClass} .example_movie_card_module__container`;
 
   return (
     <StyleContainer mode={mode} state={state} noStyleTag={noStyleTag}>
-      {/* Module */}
+      {/* Module wrapper */}
       {elements.style({
-        attrName: 'module',
+        attrName: "module",
         styleProps: {
           disabledOn: {
             disabledModuleVisibility: settings?.disabledModuleVisibility,
           },
-          advancedStyles: [
-            {
-              componentName: "divi/text",
-              props: {
-                selector:textSelector ,
-                attr: attrs?.module?.advanced?.text,
-              }
-            }
-          ]
         },
       })}
+
       {/* Image */}
       {elements.style({
-        attrName: 'image',
+        attrName: "image",
       })}
 
       {/* Title */}
       {elements.style({
-        attrName: 'title',
+        attrName: "title",
       })}
 
-      {/* Summary */}
+      {/* Tagline */}
       {elements.style({
-        attrName: 'summary',
+        attrName: "tagline",
       })}
 
-      {/* Content */}
+      {/* Genres */}
       {elements.style({
-        attrName: 'content',
+        attrName: "genres",
       })}
 
-      {/*
-       * We need to add CssStyle at the very bottom of other components
-       * so that custom css can override module styles till we find a
-       * more elegant solution.
-       */}
-      <CssStyle
-        selector={orderClass}
-        attr={attrs.css}
-        cssFields={cssFields}
-      />
+      {/* Rating */}
+      {elements.style({
+        attrName: "rating",
+      })}
 
+      {/* Synopsis */}
+      {elements.style({
+        attrName: "synopsis",
+      })}
+
+      {/* Release date */}
+      {elements.style({
+        attrName: "releaseDate",
+      })}
+
+      {/* Runtime */}
+      {elements.style({
+        attrName: "runtime",
+      })}
+
+      {/* Custom CSS (always last) */}
+      <CssStyle selector={orderClass} attr={attrs.css} cssFields={cssFields} />
     </StyleContainer>
   );
 };

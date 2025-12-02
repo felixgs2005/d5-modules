@@ -1,5 +1,6 @@
 {
-  "_comment": "Default printed style attributes for static module",
+  "_comment": "Default printed style attributes for Movie Card Module",
+
   "module": {
     "decoration": {
       "background": {
@@ -11,15 +12,112 @@
       }
     }
   },
+
   "title": {
     "decoration": {
       "font": {
         "font": {
           "desktop": {
             "value": {
-              "size": "26px",
-              "lineHeight": "1em",
-              "weight": "500"
+              "size": "28px",
+              "lineHeight": "1.2em",
+              "weight": "600"
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "tagline": {
+    "decoration": {
+      "font": {
+        "font": {
+          "desktop": {
+            "value": {
+              "size": "18px",
+              "lineHeight": "1.3em",
+              "weight": "400",
+              "style": "italic"
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "genres": {
+    "decoration": {
+      "font": {
+        "font": {
+          "desktop": {
+            "value": {
+              "size": "15px",
+              "lineHeight": "1.4em",
+              "weight": "400"
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "rating": {
+    "decoration": {
+      "font": {
+        "font": {
+          "desktop": {
+            "value": {
+              "size": "18px",
+              "lineHeight": "1.3em",
+              "weight": "500",
+              "color": "#FFD700"
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "synopsis": {
+    "decoration": {
+      "font": {
+        "font": {
+          "desktop": {
+            "value": {
+              "size": "16px",
+              "lineHeight": "1.6em",
+              "weight": "400"
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "releaseDate": {
+    "decoration": {
+      "font": {
+        "font": {
+          "desktop": {
+            "value": {
+              "size": "15px",
+              "lineHeight": "1.4em"
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "runtime": {
+    "decoration": {
+      "font": {
+        "font": {
+          "desktop": {
+            "value": {
+              "size": "15px",
+              "lineHeight": "1.4em"
             }
           }
         }
@@ -27,4 +125,3 @@
     }
   }
 }
-

@@ -1,10 +1,11 @@
 {
-  "_comment": "Testing separated default render attributes for 3rd party modules",
+  "_comment": "Default render attributes for Movie Card Module",
+
   "module": {
     "meta": {
       "adminLabel": {
         "desktop": {
-          "value": "Static Module"
+          "value": "Movie Card"
         }
       }
     },
@@ -34,7 +35,13 @@
       }
     }
   },
+
   "title": {
+    "innerContent": {
+      "desktop": {
+        "value": "Movie Title"
+      }
+    },
     "decoration": {
       "font": {
         "font": {
@@ -47,12 +54,52 @@
       }
     }
   },
-  "summary": {
+
+  "tagline": {
     "innerContent": {
       "desktop": {
-        "value": "This is a brief summary that provides an overview of the content below. It can span multiple lines to give readers a comprehensive understanding of what to expect in the main content section."
+        "value": "A powerful tagline from TMDB."
+      }
+    }
+  },
+
+  "genres": {
+    "innerContent": {
+      "desktop": {
+        "value": "Action, Adventure"
+      }
+    }
+  },
+
+  "rating": {
+    "innerContent": {
+      "desktop": {
+        "value": "8.2/10"
+      }
+    }
+  },
+
+  "synopsis": {
+    "innerContent": {
+      "desktop": {
+        "value": "This is a default movie synopsis used as placeholder before loading TMDB data."
+      }
+    }
+  },
+
+  "releaseDate": {
+    "innerContent": {
+      "desktop": {
+        "value": "2024-11-04"
+      }
+    }
+  },
+
+  "runtime": {
+    "innerContent": {
+      "desktop": {
+        "value": "2h 15m"
       }
     }
   }
 }
-

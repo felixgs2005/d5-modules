@@ -1,54 +1,32 @@
 // External Dependencies.
-import React, { ReactElement } from 'react';
+import React, { ReactElement } from "react";
 
 // Divi Dependencies.
-import { ModuleContainer } from '@divi/module';
+import { ModuleContainer } from "@divi/module";
 
 // Local Dependencies.
-import { StaticModuleEditProps } from './types';
-import { ModuleStyles } from './styles';
-import { moduleClassnames } from './module-classnames';
-import { ModuleScriptData } from './module-script-data';
+import { MovieCardEditProps } from "./types";
+import { ModuleStyles } from "./styles";
+import { moduleClassnames } from "./module-classnames";
+import { ModuleScriptData } from "./module-script-data";
 
-import staticMetadata from './module.json';
+import movieCardMetadata from "./module.json";
 
 /**
- * Static Module edit component of visual builder.
+ * Movie Card Module edit component (Visual Builder).
  *
  * @since ??
  *
- * @param {StaticModuleEditProps} props React component props.
+ * @param {MovieCardEditProps} props
  *
  * @returns {ReactElement}
  */
-export const StaticModuleEdit = (props: StaticModuleEditProps): ReactElement => {
-  const {
-    attrs,
-    elements,
-    id,
-    name,
-  } = props;
+export const MovieCardEdit = (props: MovieCardEditProps): ReactElement => {
+  const { attrs, elements, id, name } = props;
 
-  // Get image attributes.
-  const imageSrc = attrs?.image?.innerContent?.desktop?.value?.src ?? ''
-  const imageAlt = attrs?.image?.innerContent?.desktop?.value?.alt ?? '';
-
-  // When summary is reset, placeholder is displayed since reset restores default value.
-  // When summary is empty, placeholder is hidden since empty string indicates intentional user action.
-  // To modify this behavior, developers can update the summary attribute with a default value during module render.
-  // if ('' === attrs?.summary?.innerContent?.desktop?.value) {
-  //   elements.attrs = {
-  //     ...elements.attrs,
-  //     summary: {
-  //       ...elements.attrs.summary,
-  //       innerContent: {
-  //         desktop: {
-  //           value: staticMetadata?.attributes?.summary?.default?.innerContent?.desktop?.value ?? '',
-  //         },
-  //       },
-  //     },
-  //   };
-  // }
+  // Extract image
+  const imageSrc = attrs?.image?.innerContent?.desktop?.value?.src ?? "";
+  const imageAlt = attrs?.image?.innerContent?.desktop?.value?.alt ?? "";
 
   return (
     <ModuleContainer
@@ -61,24 +39,51 @@ export const StaticModuleEdit = (props: StaticModuleEditProps): ReactElement => 
       scriptDataComponent={ModuleScriptData}
     >
       {elements.styleComponents({
-        attrName: 'module',
+        attrName: "module",
       })}
-      <div className="example_static_module__inner">
-        <div className="example_static_module__image">
+
+      <div className="example_movie_card_module__inner">
+        {/* IMAGE */}
+        <div className="example_movie_card_module__image">
           <img src={imageSrc} alt={imageAlt} />
         </div>
-        <div className="example_static_module__content-container">
+
+        {/* CONTENT */}
+        <div className="example_movie_card_module__content-container">
+          {/* Title */}
           {elements.render({
-            attrName: 'title',
+            attrName: "title",
           })}
+
+          {/* Tagline */}
           {elements.render({
-            attrName: 'summary',
+            attrName: "tagline",
           })}
-          <div className="example_static_module__content">
-            {elements.render({
-              attrName: 'content',
-            })}
-          </div>
+
+          {/* Genres */}
+          {elements.render({
+            attrName: "genres",
+          })}
+
+          {/* Rating */}
+          {elements.render({
+            attrName: "rating",
+          })}
+
+          {/* Synopsis */}
+          {elements.render({
+            attrName: "synopsis",
+          })}
+
+          {/* Release Date */}
+          {elements.render({
+            attrName: "releaseDate",
+          })}
+
+          {/* Runtime */}
+          {elements.render({
+            attrName: "runtime",
+          })}
         </div>
       </div>
     </ModuleContainer>
