@@ -50,6 +50,11 @@ export const MovieCardEdit = (props: MovieCardEditProps): ReactElement => {
 
         {/* CONTENT */}
         <div className="example_movie_card_module__content-container">
+          {/* Movie ID */}
+          {elements.render({
+            attrName: "movieId",
+          })}
+
           {/* Title */}
           {elements.render({
             attrName: "title",

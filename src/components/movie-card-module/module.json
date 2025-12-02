@@ -120,6 +120,29 @@
       }
     },
 
+    "movieId": {
+      "type": "object",
+      "selector": "",
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupName": "mainContent",
+            "priority": 5,
+            "render": true,
+            "attrName": "movieId.innerContent",
+            "label": "Movie ID",
+            "description": "Enter the TMDB movie ID.",
+            "component": {
+              "name": "divi/text",
+              "type": "field"
+            }
+          }
+        }
+      }
+    },
+
+
     "title": {
       "type": "object",
       "selector": "{{selector}} .example_movie_card_module__title",

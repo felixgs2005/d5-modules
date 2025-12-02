@@ -1,36 +1,81 @@
-// This style will render on Front-End and Visual Builder.
+/* ================================
+   MOVIE CARD MODULE (FRONT-END)
+   ================================ */
 
-.example_static_module {
-    padding: 30px;
-    background-color: #ecf4f7;
+.example_movie_card_module__inner {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: stretch;
+}
 
-    &__inner {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        position: relative;
-    }
+/* Image container */
+.example_movie_card_module__image img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+}
 
-    &__image {
-        flex: 0 0 50%;
-        max-width: 50%;
-        padding-right: 20px;
-    }
+/* Content container */
+.example_movie_card_module__content-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+}
 
-    &__content-container {
-        flex: 0 0 50%;
-        max-width: 50%;
-        padding-left: 20px;
-    }
+/* Title */
+.example_movie_card_module__title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
 
-    &__summary {
-        margin: 10px 0;
-        font-size: 14px;
-        line-height: 1.5;
-        color: #666;
-        background-color: #f8f9fa;
-        padding: 15px;
-        border-radius: 4px;
-        border-left: 3px solid #007cba;
-    }
+/* Tagline */
+.example_movie_card_module__tagline {
+  font-size: 1.2rem;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+/* Genres */
+.example_movie_card_module__genres {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* Rating */
+.example_movie_card_module__rating {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffd700;
+}
+
+/* Synopsis */
+.example_movie_card_module__synopsis {
+  line-height: 1.6;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* Release Date + Runtime */
+.example_movie_card_module__release-date,
+.example_movie_card_module__runtime {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+  .example_movie_card_module__inner {
+    flex-direction: column;
+  }
+
+  .example_movie_card_module__image img {
+    width: 100%;
+  }
 }

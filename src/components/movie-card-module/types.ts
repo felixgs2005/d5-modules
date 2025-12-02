@@ -58,6 +58,9 @@ export interface MovieCardAttrs extends InternalAttrs {
     >;
   };
 
+  // Movie ID
+  movieId?: Element.Types.Content.Attributes;
+
   // Title
   title?: Element.Types.Title.Attributes;
 
