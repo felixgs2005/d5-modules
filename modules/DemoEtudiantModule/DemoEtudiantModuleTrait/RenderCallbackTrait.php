@@ -8,8 +8,8 @@
 
 namespace MEE\Modules\DemoEtudiantModule\DemoEtudiantModuleTrait;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die( 'Direct access forbidden.' );
+if (!defined('ABSPATH')) {
+	die('Direct access forbidden.');
 }
 
 // phpcs:disable ET.Sniffs.ValidVariableName.UsedPropertyNotSnakeCase -- WP use snakeCase in \WP_Block_Parser_Block
@@ -20,7 +20,8 @@ use ET\Builder\FrontEnd\BlockParser\BlockParserStore;
 use ET\Builder\Packages\Module\Options\Element\ElementComponents;
 use MEE\Modules\DemoEtudiantModule\DemoEtudiantModule;
 
-trait RenderCallbackTrait {
+trait RenderCallbackTrait
+{
 
 	/**
 	 * HelloWorld module render callback which outputs server side rendered HTML on the Front-End.
@@ -34,11 +35,12 @@ trait RenderCallbackTrait {
 	 *
 	 * @return string HTML rendered of HelloWorld module.
 	 */
-	public static function render_callback( $attrs, $content, $block, $elements ) {
+	public static function render_callback($attrs, $content, $block, $elements)
+	{
 		// Debug éventuel :
 		// error_log( '[DemoEtudiantModule] render_callback called' );
 		// error_log( '[DemoEtudiantModule] attrs: ' . print_r( $attrs, true ) );
-		
+
 		// 1. RECUP DES DONNÉES
 		$title = $elements->render(['attrName' => 'title',]);
 		$description = $elements->render(['attrName' => 'description',]);
@@ -46,58 +48,63 @@ trait RenderCallbackTrait {
 		// Pour le text  brut :
 		// $titleText       = $attrs['title']['innerContent']['desktop']['value'] ?? '';
 		// $descriptionText = $attrs['description']['innerContent']['desktop']['value'] ?? '';
-		
+
 		$image_src = $attrs['image']['innerContent']['desktop']['value']['src'] ?? '';
 		$image_alt = $attrs['image']['innerContent']['desktop']['value']['alt'] ?? '';
 
 		// 2. TAG IMAGE		
 		$image = '';
-		if ( ! empty( $image_src ) ) {
+		if (!empty($image_src)) {
 			$image = '<img src="' . $image_src . '" alt="' . $image_alt . '">';
-		}				
+		}
 
 		// 3. MARKUP HTML DU MODULE
-		$html  = '<div class="example_demo_etudiant_module__inner">';
-		$html .=    '<div class="example_demo_etudiant_module__image">';
-		$html .=        $image;
-		$html .=    '</div>';
-		$html .=    '<div class="example_demo_etudiant_module__content-container">';
-		$html .=        $title;
-		$html .=        $description;
-		$html .=    '</div>';
-		$html .= '</div>'; 
+		$html = '<div class="movie-card">';
+		$html .= '<div class="movie-card__image">';
+		$html .= '<img src="' . $poster_path . '" alt="' . $title . '">';
+		$html .= '</div>';
+		$html .= '<div class="movie-card__content">';
+		$html .= '<h2 class="movie-card__title">' . $title . '</h2>';
+		$html .= '<p class="movie-card__tagline">' . $tagline . '</p>';
+		$html .= '<p class="movie-card__rating">Rating: ' . $rating . '</p>';
+		$html .= '<p class="movie-card__synopsis">' . $synopsis . '</p>';
+		$html .= '<p class="movie-card__details">';
+		$html .= 'Release: ' . $releaseDate . ' | Runtime: ' . $runtime . ' | Genres: ' . implode(", ", $genres);
+		$html .= '</p>';
+		$html .= '</div>';
+		$html .= '</div>';
 
 		// 4. CONTEXTE PARENT
-		$parent       = BlockParserStore::get_parent( $block->parsed_block['id'], $block->parsed_block['storeInstance'] );
+		$parent = BlockParserStore::get_parent($block->parsed_block['id'], $block->parsed_block['storeInstance']);
 		$parent_attrs = $parent->attrs ?? [];
 
 		// 5. RENDU FINAL VIA Module::render()
 		return Module::render(
 			[
 				// FE only.
-				'orderIndex'          => $block->parsed_block['orderIndex'],
-				'storeInstance'       => $block->parsed_block['storeInstance'],
+				'orderIndex' => $block->parsed_block['orderIndex'],
+				'storeInstance' => $block->parsed_block['storeInstance'],
 
 				// VB equivalent.
-				'attrs'               => $attrs,
-				'elements'            => $elements,
-				'id'                  => $block->parsed_block['id'],
-				'name'                => $block->block_type->name,
-				'moduleCategory'      => $block->block_type->category,
-				'classnamesFunction'  => [ DemoEtudiantModule::class, 'module_classnames' ],
-				'stylesComponent'     => [ DemoEtudiantModule::class, 'module_styles' ],
-				'scriptDataComponent' => [ DemoEtudiantModule::class, 'module_script_data' ],
-				'parentAttrs'         => $parent_attrs,
-				'parentId'            => $parent->id ?? '',
-				'parentName'          => $parent->blockName ?? '',
-				'children'            => [
+				'attrs' => $attrs,
+				'elements' => $elements,
+				'id' => $block->parsed_block['id'],
+				'name' => $block->block_type->name,
+				'moduleCategory' => $block->block_type->category,
+				'classnamesFunction' => [DemoEtudiantModule::class, 'module_classnames'],
+				'stylesComponent' => [DemoEtudiantModule::class, 'module_styles'],
+				'scriptDataComponent' => [DemoEtudiantModule::class, 'module_script_data'],
+				'parentAttrs' => $parent_attrs,
+				'parentId' => $parent->id ?? '',
+				'parentName' => $parent->blockName ?? '',
+				'children' => [
 					ElementComponents::component(
 						[
-							'attrs'         => $attrs['module']['decoration'] ?? [],
-							'id'            => $block->parsed_block['id'],
+							'attrs' => $attrs['module']['decoration'] ?? [],
+							'id' => $block->parsed_block['id'],
 
 							// FE only.
-							'orderIndex'    => $block->parsed_block['orderIndex'],
+							'orderIndex' => $block->parsed_block['orderIndex'],
 							'storeInstance' => $block->parsed_block['storeInstance'],
 						]
 					),
