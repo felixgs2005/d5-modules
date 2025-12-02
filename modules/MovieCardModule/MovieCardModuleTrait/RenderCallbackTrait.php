@@ -5,7 +5,7 @@
  * @package MEE\Modules\MovieCardModule
  */
 
-namespace MEE\Modules\MovieCardModule\MovieCardModule;
+namespace MEE\Modules\MovieCardModule\MovieCardModuleTrait;
 
 if (!defined('ABSPATH')) {
 	die('Direct access forbidden.');
@@ -78,8 +78,11 @@ trait RenderCallbackTrait
 				'alt' => $title,
 			],
 			'attributesSanitizers' => [
-				'src' => fn($value) => esc_url($value),
-			]
+				'src' => function ($value) {
+					return esc_url($value);
+				},
+			],
+
 		]);
 
 		$image_container = HTMLUtility::render([
