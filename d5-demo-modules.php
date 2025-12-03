@@ -95,3 +95,17 @@ function d5_demo_modules_enqueue_frontend_scripts()
 }
 add_action('wp_enqueue_scripts', 'd5_demo_modules_enqueue_frontend_scripts');
 
+/**
+ * Enqueue Movie Card flip JavaScript
+ */
+add_action('wp_enqueue_scripts', function () {
+	$plugin_url = plugin_dir_url(__FILE__);
+
+	wp_enqueue_script(
+		'movie-card-flip-js',
+		$plugin_url . 'scripts/movie-cards.js',
+		[],
+		'1.0.0',
+		true
+	);
+});
