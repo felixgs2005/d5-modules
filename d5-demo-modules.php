@@ -12,38 +12,42 @@ Text Domain: d5-modules-demo
 Domain Path: /languages
 */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die( 'Direct access forbidden.' );
+if (!defined('ABSPATH')) {
+	die('Direct access forbidden.');
 }
 
-define( 'D5_DEMO_MODULES_PATH', plugin_dir_path( __FILE__ ) );
-define( 'D5_DEMO_MODULES_JSON_PATH', D5_DEMO_MODULES_PATH . 'modules-json/' );
+define('D5_DEMO_MODULES_PATH', plugin_dir_path(__FILE__));
+define('D5_DEMO_MODULES_JSON_PATH', D5_DEMO_MODULES_PATH . 'modules-json/');
 
 /**
- * Requires Autoloader.
+ * Requires Autoloader + Modules
  */
 require D5_DEMO_MODULES_PATH . 'vendor/autoload.php';
 require D5_DEMO_MODULES_PATH . 'modules/Modules.php';
 
 
-/**
- * Enqueue style and scripts of Module Extension Example for Visual Builder.
- *
- * @since ??
- */
-function d5_demo_modules_enqueue_vb_scripts() {
-	if ( et_builder_d5_enabled() && et_core_is_fb_enabled() ) {
-		$plugin_dir_url = plugin_dir_url( __FILE__ );
 
+/**
+ * ---------------------------------------------------------
+ *  VISUAL BUILDER (VB) — Charge les scripts + CSS du builder
+ * ---------------------------------------------------------
+ */
+function d5_demo_modules_enqueue_vb_scripts()
+{
+
+	if (et_builder_d5_enabled() && et_core_is_fb_enabled()) {
+		$plugin_url = plugin_dir_url(__FILE__);
+
+		// JS du builder
 		\ET\Builder\VisualBuilder\Assets\PackageBuildManager::register_package_build(
 			[
-				'name'   => 'd5-demo-modules-builder-bundle-script',
+				'name' => 'd5-demo-modules-builder-js',
 				'version' => '1.0.0',
 				'script' => [
-					'src' => "{$plugin_dir_url}scripts/bundle.js",
-					'deps'               => [
+					'src' => $plugin_url . 'scripts/bundle.js',
+					'deps' => [
 						'divi-module-library',
-						'divi-vendor-wp-hooks',
+						'divi-vendor-wp-hooks'
 					],
 					'enqueue_top_window' => false,
 					'enqueue_app_window' => true,
@@ -51,13 +55,14 @@ function d5_demo_modules_enqueue_vb_scripts() {
 			]
 		);
 
+		// CSS du builder
 		\ET\Builder\VisualBuilder\Assets\PackageBuildManager::register_package_build(
 			[
-				'name'   => 'd5-demo-modules-builder-vb-bundle-style',
+				'name' => 'd5-demo-modules-builder-css',
 				'version' => '1.0.0',
 				'style' => [
-					'src' => "{$plugin_dir_url}styles/vb-bundle.css",
-					'deps'               => [],
+					'src' => $plugin_url . 'styles/vb-bundle.css',
+					'deps' => [],
 					'enqueue_top_window' => false,
 					'enqueue_app_window' => true,
 				],
@@ -65,15 +70,28 @@ function d5_demo_modules_enqueue_vb_scripts() {
 		);
 	}
 }
-add_action( 'divi_visual_builder_assets_before_enqueue_scripts', 'd5_demo_modules_enqueue_vb_scripts' );
+add_action('divi_visual_builder_assets_before_enqueue_scripts', 'd5_demo_modules_enqueue_vb_scripts');
+
+
+
 
 /**
- * Enqueue style and scripts of Module Extension Example
- *
- * @since ??
+ * ---------------------------------------------------------
+ *  FRONT-END — Charge le CSS public du module
+ * ---------------------------------------------------------
  */
-function d5_demo_modules_enqueue_frontend_scripts() {
-	$plugin_dir_url = plugin_dir_url( __FILE__ );
-	wp_enqueue_style( 'd5-demo-modules-builder-bundle-style', "{$plugin_dir_url}styles/bundle.css", array(), '1.0.0' );
+function d5_demo_modules_enqueue_frontend_scripts()
+{
+
+	$plugin_url = plugin_dir_url(__FILE__);
+
+	// CSS public (bundle.css)
+	wp_enqueue_style(
+		'd5-demo-modules-frontend-css',
+		$plugin_url . 'styles/bundle.css',
+		[],
+		'1.0.0'
+	);
 }
-add_action( 'wp_enqueue_scripts', 'd5_demo_modules_enqueue_frontend_scripts' );
+add_action('wp_enqueue_scripts', 'd5_demo_modules_enqueue_frontend_scripts');
+
