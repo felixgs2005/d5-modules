@@ -2,10 +2,38 @@
 import { MovieCardAttrs } from "./types";
 
 export const placeholderContent: MovieCardAttrs = {
-  movieId: {
+  movieId1: {
     innerContent: {
       desktop: {
-        value: "533535", // exemple : Deadpool 3
+        value: "",
+      },
+    },
+  },
+  movieId2: {
+    innerContent: {
+      desktop: {
+        value: "",
+      },
+    },
+  },
+  movieId3: {
+    innerContent: {
+      desktop: {
+        value: "",
+      },
+    },
+  },
+  movieId4: {
+    innerContent: {
+      desktop: {
+        value: "",
+      },
+    },
+  },
+  movieId5: {
+    innerContent: {
+      desktop: {
+        value: "",
       },
     },
   },
