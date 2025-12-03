@@ -1,10 +1,10 @@
-import { ModuleEditProps } from "@divi/module-library";
+import { ModuleEditProps } from '@divi/module-library';
 import {
   FormatBreakpointStateAttr,
   InternalAttrs,
   type Element,
   type Module,
-} from "@divi/types";
+} from '@divi/types';
 
 export interface MovieCardCssAttr extends Module.Css.AttributeValue {
   image?: string;
@@ -20,8 +20,10 @@ export interface MovieCardCssAttr extends Module.Css.AttributeValue {
 export type MovieCardCssGroupAttr = FormatBreakpointStateAttr<MovieCardCssAttr>;
 
 export interface MovieCardAttrs extends InternalAttrs {
+  // CSS options (used across multiple elements)
   css?: MovieCardCssGroupAttr;
 
+  // Module (always keep same structure)
   module?: {
     meta?: Element.Meta.Attributes;
     advanced?: {
@@ -30,45 +32,54 @@ export interface MovieCardAttrs extends InternalAttrs {
       text?: Element.Advanced.Text.Attributes;
     };
     decoration?: Element.Decoration.PickedAttributes<
-      | "animation"
-      | "background"
-      | "border"
-      | "boxShadow"
-      | "disabledOn"
-      | "filters"
-      | "overflow"
-      | "position"
-      | "scroll"
-      | "sizing"
-      | "spacing"
-      | "sticky"
-      | "transform"
-      | "transition"
-      | "zIndex"
+      | 'animation'
+      | 'background'
+      | 'border'
+      | 'boxShadow'
+      | 'disabledOn'
+      | 'filters'
+      | 'overflow'
+      | 'position'
+      | 'scroll'
+      | 'sizing'
+      | 'spacing'
+      | 'sticky'
+      | 'transform'
+      | 'transition'
+      | 'zIndex'
     >;
   };
 
+  // Image (from API)
   image?: {
     innerContent?: Element.Types.Image.InnerContent.Attributes;
     decoration?: Element.Decoration.PickedAttributes<
-      "border" | "boxShadow" | "filters" | "spacing"
+      'border' | 'boxShadow' | 'filters' | 'spacing'
     >;
   };
 
-  /** FIVE MOVIE IDs (NEW FIELDS YOU ADDED IN module.json) **/
-  movieId1?: Element.Types.Content.Attributes;
-  movieId2?: Element.Types.Content.Attributes;
-  movieId3?: Element.Types.Content.Attributes;
-  movieId4?: Element.Types.Content.Attributes;
-  movieId5?: Element.Types.Content.Attributes;
+  // Movie ID
+  movieId?: Element.Types.Content.Attributes;
 
-  /** OPTIONAL FIELDS (NOT USED IN YOUR CURRENT DESIGN, BUT SAFE TO KEEP) **/
+  // Title
   title?: Element.Types.Title.Attributes;
+
+  // Tagline
   tagline?: Element.Types.Content.Attributes;
+
+  // Genres
   genres?: Element.Types.Content.Attributes;
+
+  // Rating
   rating?: Element.Types.Content.Attributes;
+
+  // Synopsis
   synopsis?: Element.Types.Content.Attributes;
+
+  // Release date
   releaseDate?: Element.Types.Content.Attributes;
+
+  // Runtime
   runtime?: Element.Types.Content.Attributes;
 }
 

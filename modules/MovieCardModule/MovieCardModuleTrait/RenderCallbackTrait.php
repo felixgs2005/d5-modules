@@ -19,113 +19,184 @@ use MEE\Modules\MovieCardModule\MovieCardModule;
 
 trait RenderCallbackTrait
 {
-  /**
-   * Fetch TMDB data for a movie ID
-   */
-  private static function fetch_movie($id)
-  {
-    if (!$id)
-      return null;
 
-    $apiKey = "cda3a22976c1df786a2d28c0e5fce01e";
-
-    $url = "https://api.themoviedb.org/3/movie/$id?api_key=$apiKey&language=fr-FR";
-
-    $response = wp_remote_get($url);
-    if (is_wp_error($response)) {
-      return null;
-    }
-
-    $data = json_decode(wp_remote_retrieve_body($response), true);
-    return $data ?: null;
-  }
-
-  /**
-   * Build one movie card HTML
-   */
-  private static function build_card($movie, $isActive = false)
-  {
-    if (!$movie) {
-      return '<div class="option"><div class="option-inner"><div class="option-front"><div class="label"><div class="info"><div class="main">Invalid ID</div></div></div></div></div></div>';
-    }
-
-    $bg = "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces{$movie['backdrop_path']}";
-    $title = esc_html($movie['title']);
-    $tagline = esc_html($movie['tagline']);
-    $rating = esc_html($movie['vote_average']);
-    $overview = esc_html($movie['overview']);
-    $release = esc_html($movie['release_date']);
-    $runtime = esc_html($movie['runtime']) . " min";
-    $genres = implode(', ', array_column($movie['genres'], 'name'));
-
-    $activeClass = $isActive ? "active" : "";
-
-    return <<<HTML
-<div class="option $activeClass" style="--optionBackground: url($bg);">
-  <div class="option-inner">
-
-    <div class="option-front">
-      <div class="shadow"></div>
-      <div class="label">
-        <div class="icon"><i class="fas fa-film"></i></div>
-        <div class="info">
-          <div class="main">$title</div>
-          <div class="sub">$genres</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="option-back">
-      <h2>$title</h2>
-      <div class="rating"><i class="fas fa-star"></i><span>$rating / 10</span></div>
-
-      <div class="overview">$overview</div>
-
-      <div class="details">
-        <div><strong>Date de sortie:</strong> $release</div>
-        <div><strong>Durée:</strong> $runtime</div>
-        <div><strong>Genres:</strong> $genres</div>
-      </div>
-    </div>
-
-  </div>
-</div>
-HTML;
-  }
-
-  /**
-   * Main render callback
-   */
   public static function render_callback($attrs, $content, $block, $elements)
   {
-    // Lire les 5 Movie IDs depuis Divi
-    $ids = [
-      $attrs['movieId1']['innerContent']['desktop']['value'] ?? '',
-      $attrs['movieId2']['innerContent']['desktop']['value'] ?? '',
-      $attrs['movieId3']['innerContent']['desktop']['value'] ?? '',
-      $attrs['movieId4']['innerContent']['desktop']['value'] ?? '',
-      $attrs['movieId5']['innerContent']['desktop']['value'] ?? '',
-    ];
 
-    // Récupérer données TMDB
-    $movies = [];
-    foreach ($ids as $i => $id) {
-      $movies[$i] = self::fetch_movie($id);
-    }
-
-    // Construire HTML dynamique
-    $cards_html = '<div class="movie-cards-container"><div class="movie-cards-wrapper"><div class="options">';
-
-    foreach ($movies as $i => $movie) {
-      $cards_html .= self::build_card($movie, $i === 0); // première carte = active
-    }
-
-    $cards_html .= '</div></div></div>';
-
-    // Divi wrapping
+    // Prepare Divi parent wrapping
     $parent = BlockParserStore::get_parent($block->parsed_block['id'], $block->parsed_block['storeInstance']);
     $parent_attrs = $parent->attrs ?? [];
 
+    // HTML en NOWDOC (aucun conflit de guillemets)
+    $cards_html = <<<'HTML'
+<div class="movie-cards-container">
+  <div class="movie-cards-wrapper">
+    <div class="options">
+
+      <!-- CARD 1 — DEADPOOL & WOLVERINE -->
+      <div class="option active"
+        style="--optionBackground: url(https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/ufpeVEM64uZHPpzzeiDNIAdaeOD.jpg);">
+        <div class="option-inner">
+
+          <div class="option-front">
+            <div class="shadow"></div>
+            <div class="label">
+              <div class="icon"><i class="fas fa-skull"></i></div>
+              <div class="info">
+                <div class="main">Deadpool &amp; Wolverine</div>
+                <div class="sub">Action • Comedy</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="option-back">
+            <h2>Deadpool &amp; Wolverine</h2>
+            <div class="rating"><i class="fas fa-star"></i><span>7.6/10</span></div>
+            <div class="overview">
+              Deadpool franchit les frontières du Multivers pour rencontrer Wolverine et former une alliance explosive.
+            </div>
+            <div class="details">
+              <div><strong>Release Date:</strong> 26 juillet 2024</div>
+              <div><strong>Runtime:</strong> 2h 7m</div>
+              <div><strong>Genre:</strong> Action, Comédie</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CARD 2 — INSIDE OUT 2 -->
+      <div class="option"
+        style="--optionBackground: url(https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/p5ozvmdgsmbWe0H8Xk7Rc8SCwAB.jpg);">
+        <div class="option-inner">
+          <div class="option-front">
+            <div class="shadow"></div>
+            <div class="label">
+              <div class="icon"><i class="fas fa-heart"></i></div>
+              <div class="info">
+                <div class="main">Inside Out 2</div>
+                <div class="sub">Animation • Family</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="option-back">
+            <h2>Inside Out 2</h2>
+            <div class="rating"><i class="fas fa-star"></i><span>8.0/10</span></div>
+            <div class="overview">
+              Riley fait face à de nouvelles émotions alors qu'elle grandit : Anxiété, Envie, Ennui et Embarras bouleversent son esprit.
+            </div>
+            <div class="details">
+              <div><strong>Release Date:</strong> 14 juin 2024</div>
+              <div><strong>Runtime:</strong> 1h 36m</div>
+              <div><strong>Genre:</strong> Animation, Famille</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CARD 3 — DUNE 2 -->
+      <div class="option"
+        style="--optionBackground: url(https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/xOMo8BRK7PfcJv9JCnx7s5hj0PX.jpg);">
+        <div class="option-inner">
+          <div class="option-front">
+            <div class="shadow"></div>
+            <div class="label">
+              <div class="icon"><i class="fas fa-water"></i></div>
+              <div class="info">
+                <div class="main">Dune: Part Two</div>
+                <div class="sub">Sci-Fi • Adventure</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="option-back">
+            <h2>Dune: Part Two</h2>
+            <div class="rating"><i class="fas fa-star"></i><span>8.5/10</span></div>
+            <div class="overview">
+              Paul Atreides s’allie aux Fremen pour mener la guerre contre l’Empire et les Harkonnen.
+            </div>
+            <div class="details">
+              <div><strong>Release Date:</strong> 1 mars 2024</div>
+              <div><strong>Runtime:</strong> 2h 46m</div>
+              <div><strong>Genre:</strong> Science-fiction, Aventure</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CARD 4 — JOKER 2 -->
+      <div class="option"
+        style="--optionBackground: url(https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/AVWlQpVhpudyFsSh3OQIieHHYf.jpg);">
+        <div class="option-inner">
+
+          <div class="option-front">
+            <div class="shadow"></div>
+            <div class="label">
+              <div class="icon"><i class="fas fa-mask"></i></div>
+              <div class="info">
+                <div class="main">Joker: Folie à Deux</div>
+                <div class="sub">Drama • Crime</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="option-back">
+            <h2>Joker: Folie à Deux</h2>
+            <div class="rating"><i class="fas fa-star"></i><span>6.9/10</span></div>
+            <div class="overview">
+              Arthur Fleck poursuit sa descente dans la folie, accompagné d’Harley Quinn.
+            </div>
+            <div class="details">
+              <div><strong>Release Date:</strong> 4 octobre 2024</div>
+              <div><strong>Runtime:</strong> 2h 12m</div>
+              <div><strong>Genre:</strong> Drame, Crime</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CARD 5 — KINGDOM OF THE PLANET OF THE APES -->
+      <div class="option"
+        style="--optionBackground: url(https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/iHYh4cdO8ylA3W0dUxTDVdyJ5G9.jpg);">
+        <div class="option-inner">
+
+          <div class="option-front">
+            <div class="shadow"></div>
+            <div class="label">
+              <div class="icon"><i class="fas fa-paw"></i></div>
+              <div class="info">
+                <div class="main">Kingdom of the Planet of the Apes</div>
+                <div class="sub">Action • Sci-Fi</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="option-back">
+            <h2>Kingdom of the Planet of the Apes</h2>
+            <div class="rating"><i class="fas fa-star"></i><span>7.2/10</span></div>
+            <div class="overview">
+              Plusieurs générations après César, un jeune singe remet en question l'ordre établi dans un empire de primates.
+            </div>
+            <div class="details">
+              <div><strong>Release Date:</strong> 10 mai 2024</div>
+              <div><strong>Runtime:</strong> 2h 25m</div>
+              <div><strong>Genre:</strong> Action, Science-fiction</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+HTML;
+
+    // ==== WRAP DIVI ====
     return Module::render([
       'orderIndex' => $block->parsed_block['orderIndex'],
       'storeInstance' => $block->parsed_block['storeInstance'],
@@ -150,4 +221,5 @@ HTML;
       ],
     ]);
   }
+
 }
