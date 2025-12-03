@@ -46,81 +46,7 @@
       }
     },
 
-    "image": {
-      "type": "object",
-      "selector": "{{selector}} .example_movie_card_module__image img",
-      "styleProps": {
-        "border": {
-          "important": true
-        }
-      },
-      "settings": {
-        "decoration": {
-          "border": {
-            "groupType": "group-item",
-            "item": {
-              "groupSlug": "designImage",
-              "priority": 10,
-              "render": true,
-              "component": {
-                "type": "group",
-                "name": "divi/border",
-                "props": {
-                  "grouped": false
-                }
-              }
-            }
-          },
-          "spacing": {
-            "groupType": "group-item",
-            "item": {
-              "groupSlug": "designImage",
-              "priority": 20,
-              "render": true,
-              "component": {
-                "type": "group",
-                "name": "divi/spacing",
-                "props": {
-                  "grouped": false
-                }
-              }
-            }
-          },
-          "boxShadow": {
-            "groupType": "group-item",
-            "item": {
-              "groupSlug": "designImage",
-              "priority": 30,
-              "render": true,
-              "component": {
-                "type": "group",
-                "name": "divi/box-shadow",
-                "props": {
-                  "grouped": false
-                }
-              }
-            }
-          },
-          "filters": {
-            "groupType": "group-item",
-            "item": {
-              "groupSlug": "designImage",
-              "priority": 40,
-              "render": true,
-              "component": {
-                "type": "group",
-                "name": "divi/filters",
-                "props": {
-                  "grouped": false
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-
-    "movieId": {
+    "movieId1": {
       "type": "object",
       "selector": "",
       "settings": {
@@ -128,11 +54,11 @@
           "groupType": "group-item",
           "item": {
             "groupName": "mainContent",
-            "priority": 5,
+            "priority": 1,
             "render": true,
-            "attrName": "movieId.innerContent",
-            "label": "Movie ID",
-            "description": "Enter the TMDB movie ID.",
+            "attrName": "movieId1.innerContent",
+            "label": "Movie ID #1",
+            "description": "Enter TMDB movie ID.",
             "component": {
               "name": "divi/text",
               "type": "field"
@@ -142,304 +68,88 @@
       }
     },
 
-
-    "title": {
+    "movieId2": {
       "type": "object",
-      "selector": "{{selector}} .example_movie_card_module__title",
-      "styleProps": {
-        "font": {
-          "important": {
-            "font": {
-              "desktop": {
-                "value": {
-                  "color": true
-                }
-              }
-            }
-          }
-        }
-      },
+      "selector": "",
       "settings": {
         "innerContent": {
           "groupType": "group-item",
           "item": {
             "groupName": "mainContent",
-            "priority": 10,
+            "priority": 2,
             "render": true,
-            "attrName": "title.innerContent",
-            "label": "Title (From API)",
-            "description": "The movie title is automatically loaded from TMDB.",
-            "features": {
-              "sticky": false,
-              "dynamicContent": false
-            },
+            "attrName": "movieId2.innerContent",
+            "label": "Movie ID #2",
+            "description": "Enter TMDB movie ID.",
             "component": {
               "name": "divi/text",
-              "type": "field",
-              "props": {
-                "disabled": true
-              }
-            }
-          }
-        },
-        "decoration": {
-          "font": {
-            "priority": 10,
-            "component": {
-              "props": {
-                "groupLabel": "Title Text",
-                "fieldLabel": "Title",
-                "fields": {
-                  "headingLevel": {
-                    "render": false
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "tagName": "h2",
-      "attributes": {
-        "class": "example_movie_card_module__title"
-      },
-      "inlineEditor": "plainText",
-      "elementType": "heading",
-      "childrenSanitizer": "et_core_esc_previously"
-    },
-    "tagline": {
-      "type": "object",
-      "selector": "{{selector}} .example_movie_card_module__tagline",
-      "styleProps": {
-        "font": {
-          "important": {
-            "font": {
-              "desktop": {
-                "value": {
-                  "color": true
-                }
-              }
-            }
-          }
-        }
-      },
-      "settings": {
-        "innerContent": {
-          "groupType": "group-item",
-          "item": {
-            "groupName": "mainContent",
-            "priority": 15,
-            "render": true,
-            "attrName": "tagline.innerContent",
-            "label": "Tagline (From API)",
-            "description": "Movie tagline loaded from TMDB.",
-            "features": {
-              "sticky": false,
-              "dynamicContent": false
-            },
-            "component": {
-              "name": "divi/text",
-              "type": "field",
-              "props": {
-                "disabled": true
-              }
-            }
-          }
-        },
-        "decoration": {
-          "font": {
-            "priority": 10,
-            "component": {
-              "props": {
-                "groupLabel": "Tagline Text",
-                "fieldLabel": "Tagline"
-              }
-            }
-          }
-        }
-      },
-      "tagName": "h3",
-      "attributes": {
-        "class": "example_movie_card_module__tagline"
-      },
-      "inlineEditor": "plainText",
-      "elementType": "heading",
-      "childrenSanitizer": "et_core_esc_previously"
-    },
-
-    "genres": {
-      "type": "object",
-      "selector": "{{selector}} .example_movie_card_module__genres",
-      "tagName": "div",
-      "attributes": {
-        "class": "example_movie_card_module__genres"
-      },
-      "inlineEditor": "plainText",
-      "childrenSanitizer": "et_core_esc_previously",
-      "settings": {
-        "innerContent": {
-          "groupType": "group-item",
-          "item": {
-            "groupName": "mainContent",
-            "priority": 20,
-            "render": true,
-            "attrName": "genres.innerContent",
-            "label": "Genres (From API)",
-            "description": "Genres auto-loaded from TMDB.",
-            "features": {
-              "sticky": false,
-              "dynamicContent": false
-            },
-            "component": {
-              "name": "divi/text",
-              "type": "field",
-              "props": {
-                "disabled": true
-              }
-            }
-          }
-        },
-        "decoration": {
-          "font": {
-            "priority": 10,
-            "component": {
-              "props": {
-                "groupLabel": "Genres Text",
-                "fieldLabel": "Genres"
-              }
-            }
-          }
-        }
-      }
-    },
-    "rating": {
-      "type": "object",
-      "selector": "{{selector}} .example_movie_card_module__rating",
-      "tagName": "div",
-      "attributes": {
-        "class": "example_movie_card_module__rating"
-      },
-      "inlineEditor": "plainText",
-      "childrenSanitizer": "et_core_esc_previously",
-      "settings": {
-        "innerContent": {
-          "groupType": "group-item",
-          "item": {
-            "groupName": "mainContent",
-            "priority": 25,
-            "render": true,
-            "attrName": "rating.innerContent",
-            "label": "Rating (From API)",
-            "description": "Rating loaded from TMDB.",
-            "features": {
-              "sticky": false
-            },
-            "component": {
-              "name": "divi/text",
-              "type": "field",
-              "props": {
-                "disabled": true
-              }
+              "type": "field"
             }
           }
         }
       }
     },
 
-    "synopsis": {
+    "movieId3": {
       "type": "object",
-      "selector": "{{selector}} .example_movie_card_module__synopsis",
-      "tagName": "div",
-      "attributes": {
-        "class": "example_movie_card_module__synopsis"
-      },
-      "inlineEditor": "plainText",
-      "childrenSanitizer": "et_core_esc_previously",
+      "selector": "",
       "settings": {
         "innerContent": {
           "groupType": "group-item",
           "item": {
             "groupName": "mainContent",
-            "priority": 30,
+            "priority": 3,
             "render": true,
-            "attrName": "synopsis.innerContent",
-            "label": "Synopsis (From API)",
-            "description": "Movie synopsis loaded from TMDB.",
-            "features": {
-              "sticky": false
-            },
-            "component": {
-              "name": "divi/textarea",
-              "type": "field",
-              "props": {
-                "disabled": true
-              }
-            }
-          }
-        },
-        "decoration": {
-          "font": {
-            "priority": 10,
-            "component": {
-              "props": {
-                "groupLabel": "Synopsis Text",
-                "fieldLabel": "Synopsis"
-              }
-            }
-          }
-        }
-      }
-    },
-    "releaseDate": {
-      "type": "object",
-      "selector": "{{selector}} .example_movie_card_module__release-date",
-      "tagName": "div",
-      "attributes": {
-        "class": "example_movie_card_module__release-date"
-      },
-      "inlineEditor": "plainText",
-      "settings": {
-        "innerContent": {
-          "groupType": "group-item",
-          "item": {
-            "groupName": "mainContent",
-            "priority": 35,
-            "render": true,
-            "attrName": "releaseDate.innerContent",
-            "label": "Release Date (From API)",
-            "description": "Release date loaded from TMDB.",
+            "attrName": "movieId3.innerContent",
+            "label": "Movie ID #3",
+            "description": "Enter TMDB movie ID.",
             "component": {
               "name": "divi/text",
-              "type": "field",
-              "props": { "disabled": true }
+              "type": "field"
             }
           }
         }
       }
     },
 
-    "runtime": {
+    "movieId4": {
       "type": "object",
-      "selector": "{{selector}} .example_movie_card_module__runtime",
-      "tagName": "div",
-      "attributes": {
-        "class": "example_movie_card_module__runtime"
-      },
-      "inlineEditor": "plainText",
+      "selector": "",
       "settings": {
         "innerContent": {
           "groupType": "group-item",
           "item": {
             "groupName": "mainContent",
-            "priority": 40,
+            "priority": 4,
             "render": true,
-            "attrName": "runtime.innerContent",
-            "label": "Runtime (From API)",
-            "description": "Runtime loaded from TMDB.",
+            "attrName": "movieId4.innerContent",
+            "label": "Movie ID #4",
+            "description": "Enter TMDB movie ID.",
             "component": {
               "name": "divi/text",
-              "type": "field",
-              "props": { "disabled": true }
+              "type": "field"
+            }
+          }
+        }
+      }
+    },
+
+    "movieId5": {
+      "type": "object",
+      "selector": "",
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupName": "mainContent",
+            "priority": 5,
+            "render": true,
+            "attrName": "movieId5.innerContent",
+            "label": "Movie ID #5",
+            "description": "Enter TMDB movie ID.",
+            "component": {
+              "name": "divi/text",
+              "type": "field"
             }
           }
         }
@@ -447,41 +157,7 @@
     }
   },
 
-  "customCssFields": {
-    "image": {
-      "subName": "image",
-      "selectorSuffix": " .example_movie_card_module__image img"
-    },
-    "title": {
-      "subName": "title",
-      "selectorSuffix": " .example_movie_card_module__title"
-    },
-    "tagline": {
-      "subName": "tagline",
-      "selectorSuffix": " .example_movie_card_module__tagline"
-    },
-    "genres": {
-      "subName": "genres",
-      "selectorSuffix": " .example_movie_card_module__genres"
-    },
-    "rating": {
-      "subName": "rating",
-      "selectorSuffix": " .example_movie_card_module__rating"
-    },
-    "synopsis": {
-      "subName": "synopsis",
-      "selectorSuffix": " .example_movie_card_module__synopsis"
-    },
-    "releaseDate": {
-      "subName": "releaseDate",
-      "selectorSuffix": " .example_movie_card_module__release-date"
-    },
-    "runtime": {
-      "subName": "runtime",
-      "selectorSuffix": " .example_movie_card_module__runtime"
-    }
-  },
-
+  "customCssFields": {},
   "settings": {
     "content": "auto",
     "design": "auto",
